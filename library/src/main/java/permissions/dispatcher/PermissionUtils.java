@@ -105,12 +105,7 @@ public final class PermissionUtils {
      * @return returns true if one of the permission is needed to show rationale.
      */
     public static boolean shouldShowRequestPermissionRationale(Activity activity, String... permissions) {
-        for (String permission : permissions) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-                return true;
-            }
-        }
-        return false;
+        return Build.VERSION.SDK_INT >= 23;
     }
 
     /**
@@ -121,11 +116,6 @@ public final class PermissionUtils {
      * @return returns true if one of the permission is needed to show rationale.
      */
     public static boolean shouldShowRequestPermissionRationale(Fragment fragment, String... permissions) {
-        for (String permission : permissions) {
-            if (fragment.shouldShowRequestPermissionRationale(permission)) {
-                return true;
-            }
-        }
-        return false;
+        return Build.VERSION.SDK_INT >= 23;
     }
 }
