@@ -4,7 +4,6 @@ import permissions.dispatcher.AarToJarConversionPlugin
 
 apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: AndroidJarDependencyPlugin
 apply plugin: AarToJarConversionPlugin
 
@@ -55,27 +54,3 @@ publishing {
         }
     }
 }
-
-bintray {
-    publications = ['MyPublication']
-    user = bintrayUser
-    key = bintrayKey
-    dryRun = dryRun
-    publish = true
-
-    pkg {
-        repo = REPO
-        userOrg = USER
-        name = ARTIFACT_ID_PROCESSOR
-        vcsUrl = VCS_URL
-        licenses = LICENSES
-        version {
-            name = VERSION
-            desc = DESCRIPTION
-        }
-    }
-}
-
-// Non-Android project: Artifactory Plugin adds only 1 publication
-project.ext.publicationName = "maven"
-apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')

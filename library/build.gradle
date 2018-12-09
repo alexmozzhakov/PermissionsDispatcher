@@ -3,7 +3,6 @@ version = VERSION
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -39,27 +38,6 @@ dependencies {
 
     api project(path: ':annotation')
     lintChecks project(path: ':lint', configuration: 'lintChecks')
-}
-
-bintray {
-    publications = ['MyPublication']
-    user = bintrayUser
-    key = bintrayKey
-    dryRun = dryRun
-    publish = true
-
-    pkg {
-        repo = REPO
-        userOrg = USER
-        name = ARTIFACT_ID_LIBRARY
-        vcsUrl = VCS_URL
-        licenses = LICENSES
-        websiteUrl = WEBSITE
-        version {
-            name = VERSION
-            desc = DESCRIPTION
-        }
-    }
 }
 
 publishing {
@@ -122,7 +100,3 @@ project.afterEvaluate {
     def compileLintTask = project.tasks.find { it.name == 'compileLint' }
     compileLintTask.dependsOn(copyLintJar)
 }
-
-// Android Library project: Artifactory Plugin adds 1 publication per Build Type
-project.ext.publicationName = "release"
-apply from: rootProject.file('gradle/gradle-artifactory-upload.gradle')
